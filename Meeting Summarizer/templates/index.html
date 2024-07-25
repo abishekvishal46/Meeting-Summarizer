@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>FAQ Section</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/glightbox@3.0.0/dist/css/glightbox.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <style>
+    :root {
+      --background-color: #ffffff;
+      --default-color: #212529;
+      --heading-color: #7a6960;
+      --accent-color: #4BAAC8;
+      --surface-color: #ffffff;
+      --contrast-color: #ffffff;
+    }
+
+    body {
+      color: var(--default-color);
+      background-color: var(--background-color);
+      font-family: "Open Sans", sans-serif;
+    }
+    .section-title {
+      text-align: center;
+      padding-bottom: 60px;
+      position: relative;
+    }
+
+    .section-title h1 {
+      font-size: 64px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      position: relative;
+      color: #7a6960; /* Adjust the color if needed */
+    }
+
+    .section-title h1:after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: #4BAAC8; /* Orange underline color */
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    }
+
+    .faq-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 15px;
+      grid-auto-rows: minmax(min-content, auto); /* Allows rows to grow with content */
+    }
+
+    .faq-item {
+      background-color: var(--surface-color);
+      position: relative;
+      padding: 20px;
+      border: 1px solid rgba(33, 37, 41, 0.15);
+      border-radius: 5px;
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
+      max-height: 80px; /* Adjust to the height of the title */
+    }
+
+    .faq-item .faq-content {
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+    }
+
+    .faq-item.faq-active {
+      max-height: 1000px; /* Large enough to accommodate expanded content */
+    }
+
+    .faq-item.faq-active .faq-content {
+      opacity: 1;
+      max-height: 150px; /* Adjust to the height of the content */
+    }
+
+    .faq-item h3 {
+      font-weight: 600;
+      font-size: 22px;
+      line-height: 24px;
+      margin: 0;
+      transition: color 0.3s;
+    }
+
+    .faq-item .faq-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 16px;
+      line-height: 0;
+      transition: color 0.3s;
+    }
+
+    .faq-item.faq-active h3 {
+      color: var(--accent-color);
+    }
+
+    .faq-item.faq-active .faq-toggle {
+      transform: rotate(90deg);
+      color: var(--accent-color);
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="faq section light-background">
+    <!-- Section Title -->
+    <div class="container section-title" style="margin-top:60px;">
+      <h1>Meeting Summarization</h1>
+      <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+    </div>
+    <!-- End Section Title -->
+
+    <div class="container">
+      <div class="faq-container">
+        {% for item in summary_data %}
+          <div class="faq-item">
+            <h3>{{ item.key }}</h3>
+            <div class="faq-content" style="font-size:20px; margin-top:10px">
+              <p>{{ item.value }}</p>
+            </div>
+            <i class="faq-toggle bi bi-chevron-right"></i>
+          </div><!-- End Faq item-->
+        {% endfor %}
+      </div>
+    </div>
+  </section><!-- /Faq Section -->
+
+  <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/glightbox@3.0.0/dist/js/glightbox.min.js"></script>
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+  AOS.init({
+    duration: 600,
+    easing: 'ease-in-out',
+    once: true,
+    mirror: false
+  });
+
+  document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle').forEach((faqItem) => {
+    faqItem.addEventListener('click', () => {
+      const parent = faqItem.parentNode;
+      parent.classList.toggle('faq-active');
+    });
+  });
+});
+
+  </script>
+</body>
+</html>
